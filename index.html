@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Virtual keyboard</title>
+
+  <script defer src="./index.js"></script>
+  <script defer src="./hangul.js"></script>
+</head>
+
+<body>
+  <h2>Keyboard Layouts</h2>
+  <div class="keyboard">
+    <div class="keyboard__row"></div>
+    <div class="keyboard__row"></div>
+    <div class="keyboard__row"></div>
+    <div class="keyboard__row"></div>
+    <div class="keyboard__row"></div>
+  </div>
+  <hr>
+  <form id="test1" onsubmit="testFunc()">
+    <h3>str</h3>
+    <textarea id="str" placeholder="str"></textarea>
+    <button type="submit">Hangul.assemble(Hangul.disassemble(str))</button>
+    <h3>disassemble result</h3>
+    <div id="test1-result1"></div>
+    <h3>asssemble result</h3>
+    <div id="test1-summary2">
+    </div>
+    <div id="test1-result2">
+    </div>
+  </form>
+</body>
+
+</html>
