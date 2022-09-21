@@ -28,6 +28,7 @@ body {
   position: relative;
   overflow: hidden;
   order: 2;
+  font-size: 1.15rem;
 }
 
 .keyboard_keys {

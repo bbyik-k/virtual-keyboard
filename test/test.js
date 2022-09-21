@@ -28,7 +28,7 @@ window.addEventListener('keydown', function (e) {
       spaceKey.classList.add('active')
     }
     if (e.code == 'ShiftLeft') {
-      shift_right.classList.remove('active')
+      // shift_right.classList.remove('active')
     }
     if (e.code == 'ShiftRight') {
       shift_left.classList.remove('active')
@@ -40,6 +40,8 @@ window.addEventListener('keydown', function (e) {
 })
 
 window.addEventListener('keyup', function (e) {
+  console.debug(e);
+  console.debug(e.code);
   // console.debug(`keyup@@@`);
   for (let i = 0; i < keys.length; i++) {
     if (e.key == keys[i].getAttribute('keyname') || e.key == keys[i].getAttribute('lowerCaseName')) {
@@ -51,8 +53,8 @@ window.addEventListener('keyup', function (e) {
       spaceKey.classList.add('remove');
     }
     if (e.code == 'ShiftLeft') {
-      shift_right.classList.remove('active')
-      shift_right.classList.remove('remove')
+      // shift_right.classList.remove('active')
+      // shift_right.classList.remove('remove')
     }
     if (e.code == 'ShiftRight') {
       shift_left.classList.remove('active')
@@ -113,9 +115,41 @@ function setKeyboardClick() {
 
 const letters = document.querySelectorAll('.letter');
 const toggleKey = document.querySelector('.toggle_key');
-
+const backspaceKey = document.querySelector('.backspace_key');
+const shiftKey = document.querySelector('.shift_key');
+const enterKey = document.querySelector('.enter_key');
+let isPressed = false;
 let sentence = "";
-let LANG_TYPE = true;
+let LANG_TYPE = "en-us";
+let LANG_STATE = "lower"
+shiftKey.addEventListener('click', setKeysCase);
+
+backspaceKey.addEventListener('mouseup', () => {
+  isPressed = false;
+});
+
+backspaceKey.addEventListener('mouseout', () => {
+  isPressed = false;
+});
+
+backspaceKey.addEventListener('mousedown', () => {
+  isPressed = true;
+  delLetter();
+});
+
+
+function delLetter() {
+  if (isPressed) {
+    sentence = sentence.slice(0, -1);
+    text_input.value = sentence;
+
+    setTimeout(_ => {
+      delLetter();
+    }, 100);
+  }
+};
+
+
 
 function onKeyboardClick(e) {
   // console.debug(e);  
@@ -126,15 +160,35 @@ function onKeyboardClick(e) {
   // const selKeyValue = e.target.attributes.keyname.value;
   const selKeyValue = e.target.attributes.class.ownerElement.innerHTML;
   const selKeyType = e.target.attributes.class.ownerElement.classList[1];
-  if (selKeyType == "backspace_key") {
-    sentence = sentence.slice(0, -1);
-  } else if (selKeyType == "toggle_key") {
-    setKeysLetter();
-  } else {
-    sentence += selKeyValue;
-    sentence = Hangul.disassemble(sentence);
-    sentence = Hangul.assemble(sentence);
+
+  switch (selKeyType) {
+    case "backspace_key":
+    case "shift_key":
+    case "enter_key":
+      break;
+    case "toggle_key":
+      setKeysLetter();
+      break;
+    case "space_key":
+      sentence += " ";
+      break
+    default:
+      sentence += selKeyValue;
+      sentence = Hangul.disassemble(sentence);
+      sentence = Hangul.assemble(sentence);
   }
+
+  // if (selKeyType == "backspace_key") {
+  //   // sentence = sentence.slice(0, -1);
+  // } else if (selKeyType == "toggle_key") {
+  //   setKeysLetter();
+  // } else if (selKeyType == "space_key") {
+  //   sentence += " ";
+  // } else {
+  //   sentence += selKeyValue;
+  //   sentence = Hangul.disassemble(sentence);
+  //   sentence = Hangul.assemble(sentence);
+  // }
   // document.getElementsByClassName("address")[0].childNodes[0].innerHTML = addressee;
 
   // text_input.value += e.target.attributes.keyname.value;
@@ -142,17 +196,45 @@ function onKeyboardClick(e) {
 }
 
 // toggleKey.addEventListener('click', setKeysLetter);
+setKeysLetter();
 
 function setKeysLetter() {
-  if (LANG_TYPE) {
+
+  if (LANG_TYPE == "ko-kr") {
     letters.forEach((ele, idx) => {
       ele.innerHTML = letterObj["en-us"][idx];
     });
-    LANG_TYPE = false;
+    LANG_TYPE = "en-us";
   } else {
     letters.forEach((ele, idx) => {
-      ele.innerHTML = letterObj["ko-kr"][idx];
+      ele.innerHTML = letterObj["ko-kr"]["lower"][idx];
     });
-    LANG_TYPE = true;
+    LANG_TYPE = "ko-kr";
+  }
+}
+
+function setKeysCase() {
+  if (LANG_STATE == "lower") {
+    if (LANG_TYPE == "ko-kr") {
+      letters.forEach((ele, idx) => {
+        ele.innerHTML = letterObj["ko-kr"]["upper"][idx];
+      });
+    } else {
+      letters.forEach((ele, idx) => {
+        ele.innerHTML = letterObj["en-us"][idx].toUpperCase();
+      });
+    }
+    LANG_STATE = "upper";
+  } else {
+    if (LANG_TYPE == "ko-kr") {
+      letters.forEach((ele, idx) => {
+        ele.innerHTML = letterObj["ko-kr"]["lower"][idx];
+      });
+    } else {
+      letters.forEach((ele, idx) => {
+        ele.innerHTML = letterObj["en-us"][idx].toLowerCase();
+      });
+    }
+    LANG_STATE = "lower";
   }
 }
