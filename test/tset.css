@@ -12,6 +12,7 @@ body {
 }
 
 .container {
+  border: 1px blue solid;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -20,7 +21,18 @@ body {
   margin: 0 10px;
 }
 
+#keyboard_area {
+  max-width: 1008px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  /* justify-content: center; */
+  border: 1px red solid;
+}
+
 .keyboard_wrapp {
+  border: 1px red solid;
   /* max-width: 690px; */
   max-width: 890px;
   width: 100%;
@@ -92,11 +104,85 @@ body {
   width: 100%;
 }
 
+#input_box {
+  border: 1px blue solid;
+  /* position: relative; */
+  /* top: 00px; */
+  max-width: 1008px;
+  width: 100%;
+  height: 120px;
+  margin-bottom: 30px;
+  border: none;
+  outline: none;
+  font-size: 26px;
+  /* background-color: #f7f7f7; */
+  /* padding-left: 10px; */
+  transition: 0.2s;
+}
+
+/* Auto complete */
+#input_auto {
+  /* border: 1px #000 solid; */
+  /* margin-left: 10px; */
+  position: relative;
+  top: -65px;
+  height: 120px;
+  overflow-y: scroll;
+
+  width: 160px;
+  /* background-color: #999; */
+  /* position: relative; */
+}
+::-webkit-scrollbar {
+  /* 스크롤바 전체 영역 */
+  width: 10px;
+}
+::-webkit-scrollbar-track {
+  /* 스크롤이 움직이는 영역  */
+  background-color: #f7f7f7;
+  /* background-color: #999; */
+}
+::-webkit-scrollbar-thumb {
+  /*  스크롤  */
+  background-color: #e7e7e7;
+  border-radius: 30px;
+}
+
+#input_auto.scrollbar {
+  width: 53px;
+  /* &::-webkit-scrollbar {
+    width: 3px;
+    background: none;
+  }
+  &::-webkit-scrollbar-thumb {
+    background: #f8f7fb;
+    opacity: 0.4;
+  }
+  &::-webkit-scrollbar-track {
+    background: none;
+  } */
+}
+
+#input_auto li {
+  list-style: none;
+  padding: 0;
+  margin-bottom: 1px;
+  /* text-align: center; */
+}
+
+#inputWidth {
+  /* display: none; */
+  visibility: hidden;
+  position: absolute;
+  top: -2000px;
+  left: -2000px;
+}
+
 .text {
   max-width: 1008px;
   width: 100%;
   height: 90px;
-  margin-bottom: 30px;
+  /* margin-bottom: 30px; */
   border: none;
   outline: none;
   font-size: 26px;

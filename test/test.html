@@ -19,90 +19,104 @@
         <input class="colors_input" type="color">
       </div>
     </div>
-    <div class="keyboard_wrapp">
-      <div class="keyboard_lights"></div>
-      <div class="keyboard_keys">
-        <div class="row">
-          <!-- <div class="keys">`</div> -->
-          <div class="keys">1</div>
-          <div class="keys">2</div>
-          <div class="keys">3</div>
-          <div class="keys">4</div>
-          <div class="keys">5</div>
-          <div class="keys">6</div>
-          <div class="keys">7</div>
-          <div class="keys">8</div>
-          <div class="keys">9</div>
-          <div class="keys">0</div>
-          <!-- <div class="keys">-</div>
-          <div class="keys">=</div> -->
-          <div class="keys backspace_key">Backspace</div>
-        </div>
-        <div class="row">
-          <!-- <div class="keys tab_key">Tab</div> -->
-          <div class="keys letter">Q</div>
-          <div class="keys letter">W</div>
-          <div class="keys letter">E</div>
-          <div class="keys letter">R</div>
-          <div class="keys letter">T</div>
-          <div class="keys letter">Y</div>
-          <div class="keys letter">U</div>
-          <div class="keys letter">I</div>
-          <div class="keys letter">O</div>
-          <div class="keys letter">P</div>
-          <!-- <div class="keys">{</div>
-          <div class="keys">}</div>
-          <div class="keys slash_key">\</div> -->
-        </div>
-        <div class="row">
-          <!-- <div class="keys caps_lock_key">Caps Lock</div> -->
-          <div class="keys letter">A</div>
-          <div class="keys letter">S</div>
-          <div class="keys letter">D</div>
-          <div class="keys letter">F</div>
-          <div class="keys letter">G</div>
-          <div class="keys letter">H</div>
-          <div class="keys letter">J</div>
-          <div class="keys letter">K</div>
-          <div class="keys letter">L</div>
-          <!-- <div class="keys backspace_key">Backspace</div> -->
-          <!-- <div class="keys">;</div> -->
-          <!-- <div class="keys">"</div> -->
-          <!-- <div class="keys enter_key">Enter</div> -->
-        </div>
-        <div class="row">
-          <div class="keys shift_key shift_left">Shift</div>
-          <div class="keys letter">Z</div>
-          <div class="keys letter">X</div>
-          <div class="keys letter">C</div>
-          <div class="keys letter">V</div>
-          <div class="keys letter">B</div>
-          <div class="keys letter">N</div>
-          <div class="keys letter">M</div>
-          <div class="keys">.</div>
-          <div class="keys enter_key">Enter</div>
-          <!-- <div class="keys"><</div> -->
-          <!-- <div class="keys">></div> -->
-          <!-- <div class="keys">/</div> -->
-          <!-- <div class="keys">?</div> -->
-          <!-- <div class="keys shift_key shift_right">Shift</div> -->
-        </div>
-        <div class="row">
-          <!-- <div class="keys ctrl_key ctrl_left">Ctrl</div> -->
-          <!-- <div class="keys win_key">Win</div> -->
-          <!-- <div class="keys alt_key alt_left">Alt</div> -->
-          <div class="keys emoticon_key">☺︎</div>
-          <div class="keys toggle_key">한/영</div>
-          <div class="keys">@</div>
-          <div class="keys space_key"></div>
-          <div class="keys clear_key">Clear</div>
-          <!-- <div class="keys alt_key alt_right">Alt</div> -->
-          <!-- <div class="keys">Fn</div> -->
-          <!-- <div class="keys ctrl_key ctrl_right">Ctrl</div> -->
+
+    <div id="keyboard_area">
+      <!-- text 입력 박스 -->
+      <div id=input_box>
+        <input class="text" type="text">
+        <span id="inputWidth"></span>
+        <ul id="input_auto" style="display: none;">
+          <li>gmail.com</li>
+          <li>naver.com</li>
+          <li>naver.com</li>
+          <li>naver.com</li>
+        </ul>
+      </div>
+      <div class="keyboard_wrapp">
+        <!-- 키보드 -->
+        <div class="keyboard_lights"></div>
+        <div class="keyboard_keys">
+          <div class="row">
+            <!-- <div class="keys">`</div> -->
+            <div class="keys">1</div>
+            <div class="keys">2</div>
+            <div class="keys">3</div>
+            <div class="keys">4</div>
+            <div class="keys">5</div>
+            <div class="keys">6</div>
+            <div class="keys">7</div>
+            <div class="keys">8</div>
+            <div class="keys">9</div>
+            <div class="keys">0</div>
+            <!-- <div class="keys">-</div>
+            <div class="keys">=</div> -->
+            <div class="keys backspace_key">Backspace</div>
+          </div>
+          <div class="row">
+            <!-- <div class="keys tab_key">Tab</div> -->
+            <div class="keys letter">Q</div>
+            <div class="keys letter">W</div>
+            <div class="keys letter">E</div>
+            <div class="keys letter">R</div>
+            <div class="keys letter">T</div>
+            <div class="keys letter">Y</div>
+            <div class="keys letter">U</div>
+            <div class="keys letter">I</div>
+            <div class="keys letter">O</div>
+            <div class="keys letter">P</div>
+            <!-- <div class="keys">{</div>
+            <div class="keys">}</div>
+            <div class="keys slash_key">\</div> -->
+          </div>
+          <div class="row">
+            <!-- <div class="keys caps_lock_key">Caps Lock</div> -->
+            <div class="keys letter">A</div>
+            <div class="keys letter">S</div>
+            <div class="keys letter">D</div>
+            <div class="keys letter">F</div>
+            <div class="keys letter">G</div>
+            <div class="keys letter">H</div>
+            <div class="keys letter">J</div>
+            <div class="keys letter">K</div>
+            <div class="keys letter">L</div>
+            <!-- <div class="keys backspace_key">Backspace</div> -->
+            <!-- <div class="keys">;</div> -->
+            <!-- <div class="keys">"</div> -->
+            <!-- <div class="keys enter_key">Enter</div> -->
+          </div>
+          <div class="row">
+            <div class="keys shift_key shift_left">Shift</div>
+            <div class="keys letter">Z</div>
+            <div class="keys letter">X</div>
+            <div class="keys letter">C</div>
+            <div class="keys letter">V</div>
+            <div class="keys letter">B</div>
+            <div class="keys letter">N</div>
+            <div class="keys letter">M</div>
+            <div class="keys">.</div>
+            <div class="keys enter_key">Enter</div>
+            <!-- <div class="keys"><</div> -->
+            <!-- <div class="keys">></div> -->
+            <!-- <div class="keys">/</div> -->
+            <!-- <div class="keys">?</div> -->
+            <!-- <div class="keys shift_key shift_right">Shift</div> -->
+          </div>
+          <div class="row">
+            <!-- <div class="keys ctrl_key ctrl_left">Ctrl</div> -->
+            <!-- <div class="keys win_key">Win</div> -->
+            <!-- <div class="keys alt_key alt_left">Alt</div> -->
+            <div class="keys emoticon_key">☺︎</div>
+            <div class="keys toggle_key">한/영</div>
+            <div class="keys space_key"></div>
+            <div class="keys at_key">@</div>
+            <div class="keys clear_key">Clear</div>
+            <!-- <div class="keys alt_key alt_right">Alt</div> -->
+            <!-- <div class="keys">Fn</div> -->
+            <!-- <div class="keys ctrl_key ctrl_right">Ctrl</div> -->
+          </div>
         </div>
       </div>
     </div>
-    <input class="text" type="text">
   </div>
 
   <script src="./letterObj.js"></script>

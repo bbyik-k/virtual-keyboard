@@ -152,10 +152,12 @@ backspaceKey.addEventListener('touchstart', () => {
   TOUCH_STATE = true;
   console.debug(`touchstart & TOUCH_STATE=${TOUCH_STATE}`);
   isPressed = true;
+  autoInputBox.style.display = "none";
   delLetter();
 });
 backspaceKey.addEventListener('mousedown', () => {
   console.debug(`mousedown & TOUCH_STATE=${TOUCH_STATE}`);
+  autoInputBox.style.display = "none";
   isPressed = true;
   if (!TOUCH_STATE) {
     delLetter();
@@ -188,6 +190,9 @@ function delLetter() {
 
 
 
+
+
+
 function onKeyboardClick(e) {
   // console.debug(e);  
   console.debug(e.target.attributes);
@@ -216,10 +221,17 @@ function onKeyboardClick(e) {
     case "space_key":
       sentence += " ";
       break
+    case "at_key":
+      sentence += selKeyValue;
+      sentence = Hangul.disassemble(sentence);
+      sentence = Hangul.assemble(sentence);
+      autoInputBox.style.display = "block";
+      break;
     default:
       sentence += selKeyValue;
       sentence = Hangul.disassemble(sentence);
       sentence = Hangul.assemble(sentence);
+      break;
   }
 
   // if (selKeyType == "backspace_key") {
@@ -235,9 +247,25 @@ function onKeyboardClick(e) {
   // }
   // document.getElementsByClassName("address")[0].childNodes[0].innerHTML = addressee;
 
-  // text_input.value += e.target.attributes.keyname.value;
+  // text_input.value += e.target.attributes.keyname.value;  
   text_input.value = sentence;
+  inputWidthArea.innerHTML = sentence;
+  inputWidth = inputWidthArea.offsetWidth + 17;
+  autoInputBox.style.marginLeft = `${inputWidth}px`;
+  console.debug(`inputWidth: ${inputWidth}`);
 }
+
+const inputWidthArea = document.getElementById('inputWidth');
+let inputWidth = 0;
+const autoInputBox = document.getElementById('input_auto');
+autoInputBox.addEventListener('click', (e) => {
+  let autoText = e.path[0].innerHTML;
+  console.debug(e.path[0].innerHTML);
+  sentence += autoText;
+  text_input.value = sentence;
+  autoInputBox.style.display = "none";
+});
+
 
 // toggleKey.addEventListener('click', setKeysLetter);
 setKeysLetter();
