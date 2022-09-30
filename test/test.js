@@ -37,7 +37,7 @@ window.addEventListener('keydown', function (e) {
       caps_lock_key.classList.toggle('active');
     }
   }
-})
+});
 
 window.addEventListener('keyup', function (e) {
   console.debug(e);
@@ -118,34 +118,71 @@ const toggleKey = document.querySelector('.toggle_key');
 const backspaceKey = document.querySelector('.backspace_key');
 const shiftKey = document.querySelector('.shift_key');
 const enterKey = document.querySelector('.enter_key');
+const clearKey = document.querySelector('.clear_key');
+let clearCnt = 0;
 let isPressed = false;
 let sentence = "";
 let LANG_TYPE = "en-us";
 let LANG_STATE = "lower"
+let TOUCH_STATE = false;
 shiftKey.addEventListener('click', setKeysCase);
 
+backspaceKey.addEventListener('touchend', () => {
+  isPressed = false;
+  clearCnt = 0;
+  delTime = 200;
+  setTimeout(_ => {
+    TOUCH_STATE = false;
+    console.debug(`touchend_TOUCH_STATE=${TOUCH_STATE}`);
+  }, 500);
+});
 backspaceKey.addEventListener('mouseup', () => {
   isPressed = false;
+  clearCnt = 0;
+  delTime = 200;
 });
 
 backspaceKey.addEventListener('mouseout', () => {
   isPressed = false;
+  clearCnt = 0;
+  delTime = 200;
 });
 
-backspaceKey.addEventListener('mousedown', () => {
+backspaceKey.addEventListener('touchstart', () => {
+  TOUCH_STATE = true;
+  console.debug(`touchstart & TOUCH_STATE=${TOUCH_STATE}`);
   isPressed = true;
   delLetter();
 });
+backspaceKey.addEventListener('mousedown', () => {
+  console.debug(`mousedown & TOUCH_STATE=${TOUCH_STATE}`);
+  isPressed = true;
+  if (!TOUCH_STATE) {
+    delLetter();
+  }
+});
 
+clearKey.addEventListener('click', clear);
+
+function clear() {
+  sentence = "";
+  text_input.value = sentence;
+}
+
+let delTime = 200;
 
 function delLetter() {
   if (isPressed) {
+    clearCnt++;
     sentence = sentence.slice(0, -1);
     text_input.value = sentence;
+    if (clearCnt > 4) {
+      delTime = 100;
+    }
 
     setTimeout(_ => {
       delLetter();
-    }, 100);
+    }, delTime);
   }
 };
 
@@ -155,19 +192,26 @@ function onKeyboardClick(e) {
   // console.debug(e);  
   console.debug(e.target.attributes);
   console.debug(e.target.attributes.class.ownerElement.innerHTML);
+  console.debug(e.target.attributes.class.ownerElement.innerText);
   console.debug(e.target.attributes.keyname.value);
   console.debug(e.target.attributes.class.ownerElement.classList[1]);
   // const selKeyValue = e.target.attributes.keyname.value;
-  const selKeyValue = e.target.attributes.class.ownerElement.innerHTML;
+  // const selKeyValue = e.target.attributes.class.ownerElement.innerHTML;
+  const selKeyValue = e.target.attributes.class.ownerElement.innerText;
   const selKeyType = e.target.attributes.class.ownerElement.classList[1];
 
   switch (selKeyType) {
     case "backspace_key":
+      console.debug(`TOUCH_STATE = ${TOUCH_STATE}`);
     case "shift_key":
     case "enter_key":
+    case "clear_key":
       break;
     case "toggle_key":
       setKeysLetter();
+      break;
+    case "emoticon_key":
+      setEmoticon();
       break;
     case "space_key":
       sentence += " ";
@@ -199,7 +243,6 @@ function onKeyboardClick(e) {
 setKeysLetter();
 
 function setKeysLetter() {
-
   if (LANG_TYPE == "ko-kr") {
     letters.forEach((ele, idx) => {
       ele.innerHTML = letterObj["en-us"][idx];
@@ -211,6 +254,23 @@ function setKeysLetter() {
     });
     LANG_TYPE = "ko-kr";
   }
+}
+let EMO_STATE = "character";
+
+function setEmoticon() {
+  if (EMO_STATE == "emoticon") {
+    letters.forEach((ele, idx) => {
+      ele.innerHTML = letterObj["ko-kr"]["lower"][idx];
+    });
+    LANG_TYPE = "ko-kr";
+    EMO_STATE = "character";
+  } else {
+    letters.forEach((ele, idx) => {
+      ele.innerHTML = letterObj["emoticon"][idx];
+    });
+    EMO_STATE = "emoticon";
+  }
+
 }
 
 function setKeysCase() {
