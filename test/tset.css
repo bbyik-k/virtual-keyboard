@@ -21,7 +21,8 @@ body {
 }
 
 .keyboard_wrapp {
-  max-width: 690px;
+  /* max-width: 690px; */
+  max-width: 890px;
   width: 100%;
   background-color: #e7e7e7;
   overflow: hidden;
@@ -87,7 +88,7 @@ body {
 }
 
 .space_key {
-  max-width: 550px;
+  max-width: 466px;
   width: 100%;
 }
 
